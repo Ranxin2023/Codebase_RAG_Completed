@@ -55,6 +55,41 @@ streamlit run app.py
 
 ```
 
+## Project Structure
+```sh
+.
+├── modules/
+│   ├── clone_repository.py       # Clones the GitHub repository
+│   ├── embeddings.py             # Generates embeddings using HuggingFace
+│   ├── get_files_content.py      # Extracts content from code files
+│   ├── perform_rag.py            # Implements RAG functionality
+│   └── __init__.py               # Module initialization
+├── app.py                        # Main Streamlit application
+├── requirements.txt              # Python dependencies
+├── .env                          # Environment variables (API keys)
+└── README.md                     # Project documentation
+
+```
+
+
+## Usage
+1. Open the App:
+- After running the app, navigate to `http://localhost:8501` in your web browser.
+2. Ask Questions:
+- Enter your question about the codebase (e.g., "How is the JavaScript parser used?").
+
+## How It Works
+1. Codebase Retrieval:
+- The `clone_repository` module clones a specified GitHub repository and extracts content from supported files.
+2. Embedding Generation:
+- Code files are vectorized using HuggingFace's `sentence-transformers`.
+3. Pinecone Integration:
+- Embeddings are stored in Pinecone, enabling efficient similarity search.
+4. Query Processing:
+- The `perform_rag` module retrieves relevant snippets and sends them to the LLM for contextual answers.
+5. LLM Response:
+- The LLM generates a response based on the retrieved code snippets.
+
 ## Usage Example
 
 Below is an example interaction with the Codebase Chatbot:
@@ -76,6 +111,7 @@ Based on the provided code, the purpose of `env.ts` is to:
    - It validates the format of the GitHub private key by attempting to create a private key object using the `createPrivateKey` function from the `crypto` module. If the format is invalid, it displays an error message.
 4. If any validation checks fail, it logs an error message and exits the process with a non-zero status code using `process.exit(1)`.
 
-The purpose of `env.ts` is to ensure that the required environment variables are present and properly formatted before running the application. This helps prevent issues with the application's dependencies or third-party APIs that may be affected by invalid or missing environment variables.
+The `env.ts` file essentially acts as a gatekeeper for the application's environment variable configuration. It ensures that the application has all the necessary variables and that they are in the correct format before proceeding.
 
+By having this separate configuration file, the application's main logic can rely on these environment variables being properly set, allowing for easier maintenance and scalability.
 

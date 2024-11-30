@@ -58,26 +58,6 @@ file_content = get_main_files_content(path)
 
 
 
-"""# Setting up Pinecone
-**1. Create an account on [Pinecone.io](https://app.pinecone.io/)**
-
-**2. Create a new index called "codebase-rag" and set the dimensions to 768. Leave the rest of the settings as they are.**
-
-![Screenshot 2024-11-24 at 10 58 50 PM](https://github.com/user-attachments/assets/f5fda046-4087-432a-a8c2-86e061005238)
-
-
-
-**3. Create an API Key for Pinecone**
-
-![Screenshot 2024-11-24 at 10 44 37 PM](https://github.com/user-attachments/assets/e7feacc6-2bd1-472a-82e5-659f65624a88)
-
-
-**4. Store your Pinecone API Key within Google Colab's secrets section, and then enable access to it (see the blue checkmark)**
-
-![Screenshot 2024-11-24 at 10 45 25 PM](https://github.com/user-attachments/assets/eaf73083-0b5f-4d17-9e0c-eab84f91b0bc)
-
-
-"""
 
 # Set the PINECONE_API_KEY as an environment variable
 # pinecone_api_key = userdata.get("PINECONE_API_KEY")
@@ -115,68 +95,59 @@ vectorstore = PineconeVectorStore.from_documents(
 
 
 
-"""# Perform RAG
-
-1. Get your Groq API Key [here](https://console.groq.com/keys)
-
-2. Paste your Groq API Key into your Google Colab secrets, and make sure to enable permissions for it
-
-![Screenshot 2024-11-25 at 12 00 16 AM](https://github.com/user-attachments/assets/e5525d29-bca6-4dbd-892b-cc770a6b281d)
-
-"""
 
 client = OpenAI(
     base_url="https://api.groq.com/openai/v1",
     api_key=groq_api_key
 )
 
-query = "How are python files parsed?"
+# query = "How are python files parsed?"
 
-raw_query_embedding = get_huggingface_embeddings(query)
+# raw_query_embedding = get_huggingface_embeddings(query)
 
-raw_query_embedding
+# # raw_query_embedding
 
-# Feel free to change the "top_k" parameter to be a higher or lower number
-top_matches = pinecone_index.query(vector=raw_query_embedding.tolist(), top_k=5, include_metadata=True, namespace="https://github.com/CoderAgent/SecureAgent")
+# # Feel free to change the "top_k" parameter to be a higher or lower number
+# top_matches = pinecone_index.query(vector=raw_query_embedding.tolist(), top_k=5, include_metadata=True, namespace="https://github.com/CoderAgent/SecureAgent")
 
-top_matches
+# # top_matches
 
-contexts = [item['metadata']['text'] for item in top_matches['matches']]
+# contexts = [item['metadata']['text'] for item in top_matches['matches']]
 
-contexts
+# # contexts
 
-augmented_query = "<CONTEXT>\n" + "\n\n-------\n\n".join(contexts[ : 10]) + "\n-------\n</CONTEXT>\n\n\n\nMY QUESTION:\n" + query
+# augmented_query = "<CONTEXT>\n" + "\n\n-------\n\n".join(contexts[ : 10]) + "\n-------\n</CONTEXT>\n\n\n\nMY QUESTION:\n" + query
 
-# print(augmented_query)
+# # print(augmented_query)
 
-system_prompt = f"""You are a Senior Software Engineer, specializing in TypeScript.
+# system_prompt = f"""You are a Senior Software Engineer, specializing in TypeScript.
 
-Answer any questions I have about the codebase, based on the code provided. Always consider all of the context provided when forming a response.
-"""
+# Answer any questions I have about the codebase, based on the code provided. Always consider all of the context provided when forming a response.
+# """
 
-llm_response = client.chat.completions.create(
-    model="llama-3.1-70b-versatile",
-    messages=[
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": augmented_query}
-    ]
-)
+# llm_response = client.chat.completions.create(
+#     model="llama-3.1-70b-versatile",
+#     messages=[
+#         {"role": "system", "content": system_prompt},
+#         {"role": "user", "content": augmented_query}
+#     ]
+# )
 
-response = llm_response.choices[0].message.content
+# response = llm_response.choices[0].message.content
 
-response
-
-
+# response
 
 
 
-response = perform_rag("How is the javascript parser used?", pinecone_index, client)
+
+
+# response = perform_rag("How is the javascript parser used?", pinecone_index, client)
 
 # print(response)
 
-"""# Web APP Chatbot
+# """# Web APP Chatbot
 
-"""
+# """
 
 
 
