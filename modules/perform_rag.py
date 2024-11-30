@@ -1,4 +1,4 @@
-from modules.embeddings import get_huggingface_embeddings
+from modules.embeddings import get_huggingface_embeddings, get_codebert_embeddings
 from sklearn.metrics.pairwise import cosine_similarity
 
 import numpy as np
@@ -7,6 +7,7 @@ import numpy as np
 
 def perform_rag(query, pinecone_index, client):
     # Generate embeddings for the query
+    # query_embedding = get_codebert_embeddings(query).tolist()
     query_embedding = get_huggingface_embeddings(query).tolist()
     
     # Query Pinecone directly using the generated embeddings

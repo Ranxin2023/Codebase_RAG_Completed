@@ -25,34 +25,34 @@ from transformers import AutoTokenizer, AutoModel
 from sklearn.preprocessing import normalize
 import torch
 
-# def get_codebert_embeddings(text, model_name="microsoft/codebert-base"):
-#     """
-#     Generate embeddings using CodeBERT.
+def get_codebert_embeddings(text, model_name="microsoft/codebert-base"):
+    """
+    Generate embeddings using CodeBERT.
 
-#     Args:
-#         text (str): The text or code snippet to embed.
-#         model_name (str): The name of the pre-trained CodeBERT model.
+    Args:
+        text (str): The text or code snippet to embed.
+        model_name (str): The name of the pre-trained CodeBERT model.
 
-#     Returns:
-#         numpy.ndarray: The normalized embeddings for the input text.
-#     """
-#     # Load CodeBERT tokenizer and model
-#     tokenizer = AutoTokenizer.from_pretrained(model_name)
-#     model = AutoModel.from_pretrained(model_name)
+    Returns:
+        numpy.ndarray: The normalized embeddings for the input text.
+    """
+    # Load CodeBERT tokenizer and model
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModel.from_pretrained(model_name)
     
-#     # Tokenize input text and generate input tensors
-#     inputs = tokenizer(text, return_tensors="pt", max_length=512, truncation=True, padding="max_length")
+    # Tokenize input text and generate input tensors
+    inputs = tokenizer(text, return_tensors="pt", max_length=512, truncation=True, padding="max_length")
     
-#     # Generate embeddings
-#     with torch.no_grad():
-#         outputs = model(**inputs)
-#         # Use the [CLS] token representation as the embedding
-#         cls_embedding = outputs.last_hidden_state[:, 0, :]  # Shape: (batch_size, hidden_size)
+    # Generate embeddings
+    with torch.no_grad():
+        outputs = model(**inputs)
+        # Use the [CLS] token representation as the embedding
+        cls_embedding = outputs.last_hidden_state[:, 0, :]  # Shape: (batch_size, hidden_size)
     
-#     # Normalize the embeddings
-#     normalized_embedding = normalize(cls_embedding.numpy(), axis=1, norm="l2")
+    # Normalize the embeddings
+    normalized_embedding = normalize(cls_embedding.numpy(), axis=1, norm="l2")
     
-#     return normalized_embedding
+    return normalized_embedding
 
 from transformers import AutoTokenizer, AutoModel
 from sklearn.preprocessing import normalize
