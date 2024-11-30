@@ -8,4 +8,29 @@ This project implements a Retrieval-Augmented Generation (RAG)-based chatbot to 
 - Streamlit Web App: Provides an interactive interface for querying the chatbot.
 
 
+## Technologies Used
 
+- Python
+- Streamlit (Frontend for the chatbot)
+- Pinecone (Vector database)
+- LangChain (Framework for RAG)
+- HuggingFace Transformers (Embeddings)
+- Groq/OpenAI API (LLM for generating responses)
+
+## Setup Instructions
+
+1. Clone the Repository
+
+```sh
+git clone https://github.com/Ranxin2023/Codebase_RAG_Completed_Ranxin
+cd codebase-chatbot
+```
+
+2. Install Dependencies
+Ensure you have Python 3.8+ installed. Install required packages:
+```sh
+pip install -r requirements.txt
+```
+
+3. Set Up API Keys
+- Create a `.env` file in the root directory and add the following:
