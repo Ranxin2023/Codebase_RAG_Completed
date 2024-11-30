@@ -98,20 +98,26 @@ Below is an example interaction with the Codebase Chatbot:
 What is the purpose of the `env.ts`?
 
 ### Answer
-Based on the provided code, the purpose of `env.ts` is to:
+The purpose of `env.ts` is to import environment variables from a `.env` file and validate their presence and format.
 
-1. Import and configure the `dotenv` library, which loads environment variables from a `.env` file.
-2. Parse the environment variables and store them in a TypeScript object called `env`. This object has properties for:
-   - `GITHUB_APP_ID`
-   - `GITHUB_PRIVATE_KEY`
-   - `GITHUB_WEBHOOK_SECRET`
-   - `GROQ_API_KEY`
-3. Perform validation checks on the environment variables:
-   - It checks if all required variables are present and not empty.
-   - It validates the format of the GitHub private key by attempting to create a private key object using the `createPrivateKey` function from the `crypto` module. If the format is invalid, it displays an error message.
-4. If any validation checks fail, it logs an error message and exits the process with a non-zero status code using `process.exit(1)`.
+Step-by-step Explanation:
+1. Importing dependencies:
+The file imports dotenv, createPrivateKey from the `crypto` module, and `chalk` for colorful console output.
 
-The `env.ts` file essentially acts as a gatekeeper for the application's environment variable configuration. It ensures that the application has all the necessary variables and that they are in the correct format before proceeding.
+2. Loading `.env` file:
+`dotenv.config()` loads the environment variables from a `.env` file in the project root directory.
 
-By having this separate configuration file, the application's main logic can rely on these environment variables being properly set, allowing for easier maintenance and scalability.
+3. Exporting `env` object:
+The file exports an `env` object that contains the loaded environment variables, typed using the `const` keyword.
+
+4. Validating environment variables:
+The file checks if the required environment variables are present in the env object. If any are missing, it logs an error message and sets `valid` to `false`.
+
+5. Validating GitHub private key format:
+The file tries to create a private key using the `createPrivateKey` function from the `crypto` module. If the private key is invalid (e.g., it doesn't start or end with the expected RSA private key markers), it logs an error message and sets `valid` to `false`.
+
+6. Exiting if invalid:
+If valid is still false after checking all the environment variables, the file logs a warning message and exits the process using `process.exit(1)`.
+
+
 

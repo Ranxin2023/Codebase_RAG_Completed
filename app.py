@@ -29,9 +29,10 @@ from langchain_pinecone import PineconeVectorStore
 from pinecone import Pinecone
 # modules import
 from modules.clone_repository import clone_repository
-from modules.embeddings import get_huggingface_embeddings
+# from modules.embeddings import get_codebert_embeddings
 from modules.get_files_content import get_main_files_content
 from modules.perform_rag import perform_rag
+from modules.embeddings import CodeBERTEmbedding
 from openai import OpenAI
 import os
 from pinecone import Pinecone
@@ -73,7 +74,7 @@ pinecone_index = pc.Index("codebase-rag")
 stats = pinecone_index.describe_index_stats()
 # print(f"stats is {stats}")
 
-vectorstore = PineconeVectorStore(index_name="codebase-rag", embedding=HuggingFaceEmbeddings())
+# vectorstore = PineconeVectorStore(index_name="codebase-rag", embedding=HuggingFaceEmbeddings())
 
 documents = []
 
@@ -88,7 +89,7 @@ for file in file_content:
 
 vectorstore = PineconeVectorStore.from_documents(
     documents=documents,
-    embedding=HuggingFaceEmbeddings(),
+    embedding=CodeBERTEmbedding(),
     index_name="codebase-rag",
     namespace="https://github.com/CoderAgent/SecureAgent"
 )
@@ -170,7 +171,7 @@ if st.button("Submit"):
     if query:
         with st.spinner("Fetching the answer..."):
             # Call your RAG function
-            response = perform_rag(query, pinecone_index, client)
+            response = perform_rag(query,pinecone_index=pinecone_index ,client=client)
             st.write("### Answer:")
             st.write(response)
     else:
