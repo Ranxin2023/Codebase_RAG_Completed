@@ -21,8 +21,8 @@ def get_huggingface_embeddings(text, model_name="sentence-transformers/all-mpnet
     
     return embeddings
 
-text = "I am a programmer"
+# text = "I am a programmer"
 
-embeddings = get_huggingface_embeddings(text)
+# embeddings = get_huggingface_embeddings(text)
 
-embeddings
+# embeddings

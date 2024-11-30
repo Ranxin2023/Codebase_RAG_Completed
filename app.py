@@ -45,14 +45,14 @@ groq_api_key = os.getenv("GROQ_API_KEY")
 
 path = clone_repository("https://github.com/CoderAgent/SecureAgent")
 
-print(path)
+# print(path)
 
 
 
 
 file_content = get_main_files_content(path)
 
-file_content
+# file_content
 
 
 
@@ -91,7 +91,7 @@ pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"], environment="us-west1-gcp"
 # Connect to your Pinecone index
 pinecone_index = pc.Index("codebase-rag")
 stats = pinecone_index.describe_index_stats()
-print(f"stats is {stats}")
+# print(f"stats is {stats}")
 
 vectorstore = PineconeVectorStore(index_name="codebase-rag", embedding=HuggingFaceEmbeddings())
 
@@ -147,7 +147,7 @@ contexts
 
 augmented_query = "<CONTEXT>\n" + "\n\n-------\n\n".join(contexts[ : 10]) + "\n-------\n</CONTEXT>\n\n\n\nMY QUESTION:\n" + query
 
-print(augmented_query)
+# print(augmented_query)
 
 system_prompt = f"""You are a Senior Software Engineer, specializing in TypeScript.
 
@@ -172,7 +172,7 @@ response
 
 response = perform_rag("How is the javascript parser used?", pinecone_index, client)
 
-print(response)
+# print(response)
 
 """# Web APP Chatbot
 
