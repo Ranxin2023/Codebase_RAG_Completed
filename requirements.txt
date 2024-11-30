@@ -1,0 +1,23 @@
+# Core dependencies
+streamlit                   # Streamlit for the web app
+python-dotenv               # To manage environment variables
+
+# Git and repository management
+GitPython                   # For cloning GitHub repositories
+
+# Pinecone integration
+pinecone-client             # Pinecone library for vector databases
+
+# Embedding models
+sentence-transformers       # For generating embeddings
+
+# LangChain for RAG
+langchain                   # LangChain library for retrieval-augmented generation
+langchain-pinecone          # Pinecone integration for LangChain
+langchain-community         # Community embeddings for LangChain
+# Utils
+numpy
+scikit-learn                # For cosine similarity and other ML utilities
+# OpenAI/Groq API
+openai                      # OpenAI API integration (if used)
+
