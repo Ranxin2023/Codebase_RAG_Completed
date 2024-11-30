@@ -8,7 +8,7 @@ def perform_rag(query, pinecone_index, client):
     
     raw_query_embedding = get_huggingface_embeddings(query)
 
-    top_matches = pinecone_index.query(vector=raw_query_embedding.tolist(), top_k=5, include_metadata=True, namespace="https://github.com/CoderAgent/SecureAgent")
+    top_matches = pinecone_index.query(vector=raw_query_embedding.tolist(), top_k=10, include_metadata=True, namespace="https://github.com/CoderAgent/SecureAgent")
 
     # Get the list of retrieved texts
     contexts = [item['metadata']['text'] for item in top_matches['matches']]
