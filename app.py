@@ -141,9 +141,42 @@ client = OpenAI(
 
 import streamlit as st
 
-# Streamlit App Title
+# # Streamlit App Title
+# st.title("Codebase Chatbot")
+# st.write("Ask questions about your codebase, and I'll fetch the best answers using Retrieval-Augmented Generation (RAG).")
+
+# # User Input
+# query = st.text_input("Enter your question:")
+
+# # Button to submit query
+# if st.button("Submit"):
+#     if query:
+#         with st.spinner("Fetching the answer..."):
+#             # Call your RAG function
+#             response = perform_rag(query,pinecone_index=pinecone_index ,client=client)
+#             st.write("### Answer:")
+#             st.write(response)
+#     else:
+#         st.warning("Please enter a question!")
+
+# Streamlit App
+# Display the chat history
 st.title("Codebase Chatbot")
 st.write("Ask questions about your codebase, and I'll fetch the best answers using Retrieval-Augmented Generation (RAG).")
+
+# Initialize session state for chat history
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+st.write("### Chat History:")
+if st.session_state.messages:
+    for msg in st.session_state.messages:
+        if msg["role"] == "user":
+            st.write(f"**You:** {msg['content']}")
+        elif msg["role"] == "assistant":
+            st.write(f"**Bot:** {msg['content']}")
+else:
+    st.write("No messages yet. Ask your first question below!")
 
 # User Input
 query = st.text_input("Enter your question:")
@@ -151,11 +184,20 @@ query = st.text_input("Enter your question:")
 # Button to submit query
 if st.button("Submit"):
     if query:
+        # Add user query to history
+        st.session_state.messages.append({"role": "user", "content": query})
+
         with st.spinner("Fetching the answer..."):
-            # Call your RAG function
-            response = perform_rag(query,pinecone_index=pinecone_index ,client=client)
-            st.write("### Answer:")
-            st.write(response)
+            # Include history in system prompt
+            system_prompt = "You are a Senior Software Engineer, specializing in TypeScript."
+            messages = [{"role": "system", "content": system_prompt}] + st.session_state.messages
+
+            # Call your perform_rag function
+            response = perform_rag(query, pinecone_index, client)
+
+            # Add bot response to history
+            st.session_state.messages.append({"role": "assistant", "content": response})
+
+            
     else:
         st.warning("Please enter a question!")
-
