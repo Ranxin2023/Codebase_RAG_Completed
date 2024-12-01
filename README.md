@@ -77,6 +77,8 @@ streamlit run app.py
 - After running the app, navigate to `http://localhost:8501` in your web browser.
 2. Ask Questions:
 - Enter your question about the codebase (e.g., "How is the JavaScript parser used?").
+3. View Chat History:
+- Chat history is displayed below the input field for seamless conversation.
 
 ## How It Works
 1. Codebase Retrieval:
