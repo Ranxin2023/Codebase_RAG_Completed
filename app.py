@@ -15,9 +15,6 @@ Original file is located at
 # Install Necessary Libraries
 """
 
-
-
-
 from sklearn.metrics.pairwise import cosine_similarity
 
 import tempfile
@@ -49,15 +46,9 @@ path = clone_repository("https://github.com/CoderAgent/SecureAgent")
 # print(path)
 
 
-
-
 file_content = get_main_files_content(path)
 
 # file_content
-
-
-
-
 
 
 # Set the PINECONE_API_KEY as an environment variable
@@ -66,7 +57,6 @@ os.environ['PINECONE_API_KEY'] = pinecone_api_key
 
 # Initialize Pinecone
 pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"], environment="us-west1-gcp")
-
 
 
 # Connect to your Pinecone index
@@ -138,10 +128,6 @@ client = OpenAI(
 
 # response
 
-
-
-
-
 # response = perform_rag("How is the javascript parser used?", pinecone_index, client)
 
 # print(response)
@@ -151,13 +137,9 @@ client = OpenAI(
 # """
 
 
-
 # Commented out IPython magic to ensure Python compatibility.
 
 import streamlit as st
-
-# Import your RAG function
-# from your_rag_module import perform_rag  # Replace with the correct module name
 
 # Streamlit App Title
 st.title("Codebase Chatbot")
