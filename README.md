@@ -48,7 +48,9 @@ GROQ_API_KEY=your-groq-api-key
     - Namespace: `codebase-rag`
 - Note the environment (e.g., `us-west1-gcp`) and ensure it matches your code.
 
-5. Run the Application
+5. Get groq keys [here](https://console.groq.com/keys)
+
+6. Run the Application
 Launch the Streamlit app:
 ```sh
 streamlit run app.py
